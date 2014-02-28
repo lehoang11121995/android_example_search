@@ -8,7 +8,6 @@ import android.app.LoaderManager;
 import android.content.Loader;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.widget.SearchView;
@@ -93,6 +92,7 @@ public class MainListFragment extends ListFragment implements LoaderManager.Load
     // the search filter, and restart the loader to do a new query
     // with this filter.
     _curFilter = !TextUtils.isEmpty(newText) ? newText : null;
+    _adapter.setQuery(_curFilter);
     getLoaderManager().restartLoader(0, null, this);
     return true;
   }

@@ -5,13 +5,14 @@ import java.util.List;
 
 import android.content.AsyncTaskLoader;
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.example.search_example_android.MimeTypes.MimeType;
 
 public class MainListLoader extends AsyncTaskLoader<List<String>> {
   
   private List<String> _data;
-  private String _queryFilter;
+  private String _query;
   
   /**
    * 
@@ -20,7 +21,7 @@ public class MainListLoader extends AsyncTaskLoader<List<String>> {
    */
   public MainListLoader(Context context, String queryFiler) {
     super(context);
-    _queryFilter = queryFiler;
+    _query = queryFiler;
   }
 
   /**
@@ -37,7 +38,8 @@ public class MainListLoader extends AsyncTaskLoader<List<String>> {
     for( MimeType type : MimeTypes.MimeType.values() ){
       str = type.toString() + " - " + type.contentType;
       
-      if( _queryFilter == null || str.indexOf(_queryFilter) != -1 ){
+      int index = TextUtils.isEmpty(_query) ? 0 : str.toLowerCase().indexOf(_query.toLowerCase());
+      if( index != -1 ){
         result.add(str);
       }
     }
